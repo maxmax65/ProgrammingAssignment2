@@ -12,7 +12,7 @@
 ## M$set() function passing a <square_matrix> as argument
 
 makeCacheMatrix <- function(x = matrix()) {
-inverse<-NULL
+	inverse<-NULL
 	set<-function(y){
 		x<<-y
 		inverse<<-NULL
@@ -23,8 +23,8 @@ inverse<-NULL
 	list (set=set, get=get, setinverse=setinverse, getinverse=getinverse)
 }
 
-## This function calculates the inverse of the special matrix crated with the above function
-## It verifies first if the inverse matrix has already been calculated and cached in the
+## This function calculates the inverse of the special matrix created with the above function
+## It verifies first if the inverse matrix has already been calculated and is already cached in the
 ## special matrix received as argument
 
 cacheSolve <- function(x, ...) {
@@ -44,5 +44,5 @@ cacheSolve <- function(x, ...) {
 ## Example:
 ## B<-makeCacheMatrix() ## creates a "special matrix" B
 ## B$set(matrix(c(2,1,1,2),2,2)) ## sets the values of matrix B
-## cacheSolve(B) ## calculates the inverse of the B's values and stores it in B itself
+## cacheSolve(B) ## calculates the inverse matrix of the B's values and stores it in B itself
 ## B$get()%*%B$getinverse() ## returns a unitary square matrix
