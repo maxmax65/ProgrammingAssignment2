@@ -1,5 +1,5 @@
-## These two functions handle the creation of a special kind of square matrix
-## that can contain its inverse and the calculation (or retrieval from cache) of its inverse
+## These two functions are used to create and set a special kind of square matrix that contains also
+## its inverse, calculated the first time and then cached for further usage 
 
 ## This function creates a special square matrix that can contain its inverse
 ## It creates a list containing the functions to:
