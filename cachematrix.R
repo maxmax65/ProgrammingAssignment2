@@ -1,5 +1,5 @@
 ## These two functions are used to create and set a special kind of square matrix that contains also
-## its inverse, calculated the first time and then cached for further usage 
+## its inverse, calculated once and stored in the special_matrix  and then fetched from it for further usage 
 
 ## This function creates a special square matrix that can contain its inverse
 ## It creates a list containing the functions to:
@@ -8,7 +8,7 @@
 ## 3. set the inverse matrix
 ## 4. get the inverse matrix
 
-## Once created a special matrix M, it is posssible to set its values calling the
+## Once created a special matrix M, it is possible to set its values calling the
 ## M$set() function passing a <square_matrix> as argument
 
 makeCacheMatrix <- function(x = matrix()) {
@@ -20,29 +20,37 @@ makeCacheMatrix <- function(x = matrix()) {
 	get<- function() x
 	setinverse<- function(solve) inverse<<-solve
 	getinverse<- function() inverse
-	list (set=set, get=get, setinverse=setinverse, getinverse=getinverse)
+	## the list with the four functions to handle the special matrix is returned
+    list (set=set, get=get, setinverse=setinverse, getinverse=getinverse)
 }
 
-## This function calculates the inverse of the special matrix created with the above function
+## This function calculates or fetches from the special_matrix  (created with the above function) received
+## as argument its inverse matrix
 ## It verifies first if the inverse matrix has already been calculated and is already cached in the
 ## special matrix received as argument
 
 cacheSolve <- function(x, ...) {
-    ## Return a matrix that is the inverse of 'x'
+    ## this function returns a matrix that is the inverse of 'x'
     inverse<-x$getinverse()
-	if(!is.null(inverse)){
+	## if the inverse matrix is already present in the "special matrix", it is fetched and returned
+    if(!is.null(inverse)){
 		message("getting cached inverse matrix")
 		return(inverse)
 	}
-	matrice<-x$get()
-	inversa<-solve(matrice)
+	##  retrieve the matrix from special_matrix x with get () function
+   matrice<-x$get()
+	## apply solve () function to produce the inverse of "matrice"
+   inversa<-solve(matrice)
+   ## store the inverse matrix in the special_matrix x with setinverse () function
 	x$setinverse(inversa)
-	inversa
+	## return the inversa matrix 
+    inversa
 }
 
 
 ## Example:
-## B<-makeCacheMatrix() ## creates a "special matrix" B
-## B$set(matrix(c(2,1,1,2),2,2)) ## sets the values of matrix B
-## cacheSolve(B) ## calculates the inverse matrix of the B's values and stores it in B itself
-## B$get()%*%B$getinverse() ## returns a unitary square matrix
+## >B<-makeCacheMatrix() ## creates an object B of "special matrix" kind
+## >B$set(matrix(c(2,1,1,2),2,2)) ## sets the values of special_matrix B
+## >cacheSolve(B) ## calculates the inverse matrix of the B's values and stores it in B itself
+## >cacheSolve (B) ## retrieves the inverse matrix already cached in B
+## >B$get()%*%B$getinverse() ## returns a unitary square matrix
