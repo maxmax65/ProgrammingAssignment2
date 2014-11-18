@@ -38,10 +38,10 @@ cacheSolve <- function(x, ...) {
 		return(inverse)
 	}
 	##  retrieve the matrix from special_matrix x with get () function
-   matrice<-x$get()
+    matrice<-x$get()
 	## apply solve () function to produce the inverse of "matrice"
-   inversa<-solve(matrice)
-   ## store the inverse matrix in the special_matrix x with setinverse () function
+    inversa<-solve(matrice)
+    ## store the inverse matrix in the special_matrix x with setinverse () function
 	x$setinverse(inversa)
 	## return the inversa matrix 
     inversa
